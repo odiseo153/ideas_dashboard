@@ -1,26 +1,200 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "@fontsource-variable/inter";
+@import "@fontsource/jetbrains-mono";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Base colors */
+  --color-background: hsl(222 47% 6%);
+  --color-foreground: hsl(210 40% 98%);
+  
+  --color-card: hsl(222 47% 8%);
+  --color-card-foreground: hsl(210 40% 98%);
+  
+  --color-popover: hsl(222 47% 10%);
+  --color-popover-foreground: hsl(210 40% 98%);
+  
+  --color-primary: hsl(175 80% 50%);
+  --color-primary-foreground: hsl(222 47% 6%);
+  
+  --color-secondary: hsl(270 60% 60%);
+  --color-secondary-foreground: hsl(210 40% 98%);
+  
+  --color-muted: hsl(222 30% 14%);
+  --color-muted-foreground: hsl(215 20% 55%);
+  
+  --color-accent: hsl(175 60% 20%);
+  --color-accent-foreground: hsl(175 80% 70%);
+  
+  --color-destructive: hsl(0 72% 51%);
+  --color-destructive-foreground: hsl(210 40% 98%);
+  
+  --color-border: hsl(222 30% 18%);
+  --color-input: hsl(222 30% 18%);
+  --color-ring: hsl(175 80% 50%);
+  
+  /* Type colors */
+  --color-webapp: hsl(175 80% 50%);
+  --color-workflow: hsl(270 60% 60%);
+  --color-video: hsl(340 80% 60%);
+  --color-image: hsl(45 90% 55%);
+  
+  /* Radius */
+  --radius: 0.75rem;
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  
+  /* Fonts */
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(175 80% 50%), hsl(200 80% 50%));
+  --gradient-secondary: linear-gradient(135deg, hsl(270 60% 60%), hsl(300 60% 50%));
+  
+  /* Shadows */
+  --shadow-glow: 0 0 40px hsl(175 80% 50% / 0.2);
+  --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.3);
+  --shadow-elevated: 0 8px 32px hsl(0 0% 0% / 0.4);
+  
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.4s ease-out;
+  --animate-fade-up: fade-up 0.5s ease-out;
+  --animate-scale-in: scale-in 0.3s ease-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Base styles */
+* {
+  border-color: var(--color-border);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* Utility classes */
+.gradient-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: var(--gradient-primary);
+}
+
+.gradient-text-secondary {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: var(--gradient-secondary);
+}
+
+.glass {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  background-color: hsl(222 47% 8% / 0.8);
+  border: 1px solid hsl(222 30% 18% / 0.5);
+}
+
+.glow {
+  box-shadow: var(--shadow-glow);
+}
+
+.card-hover {
+  transition: all 0.3s ease-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-elevated), var(--shadow-glow);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(222 30% 14% / 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(222 30% 14%);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(215 20% 55% / 0.5);
+}
+
+/* Animation classes for Tailwind */
+@layer utilities {
+  .animate-in {
+    animation-name: fade-in;
+    animation-duration: 0.15s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+  }
+  
+  .animate-out {
+    animation-name: fade-out;
+    animation-duration: 0.15s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: both;
+  }
+  
+  .fade-in-0 { --tw-enter-opacity: 0; }
+  .fade-out-0 { --tw-exit-opacity: 0; }
+  .zoom-in-95 { --tw-enter-scale: 0.95; }
+  .zoom-out-95 { --tw-exit-scale: 0.95; }
+  
+  .slide-in-from-top-2 { --tw-enter-translate-y: -0.5rem; }
+  .slide-in-from-bottom-2 { --tw-enter-translate-y: 0.5rem; }
+  .slide-in-from-left-2 { --tw-enter-translate-x: -0.5rem; }
+  .slide-in-from-right-2 { --tw-enter-translate-x: 0.5rem; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }

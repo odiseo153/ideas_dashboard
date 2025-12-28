@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model ideas_social_content {
+  id             Int       @id @default(autoincrement())
+  fecha          DateTime  @db.Date
+  nicho          String    @db.VarChar(100)
+  body           String
+  tipo_idea      String?   @db.VarChar(20)
+  tipo_post      String?   @db.VarChar(10)
+  guion          String?
+  idea           String
+  status         Int       @default(1)
+  web_app_prompt String?
+  db_structure   String?
+  redes_sociales String[]
+  images_prompt  String[]
+  created_at     DateTime? @default(now()) @db.Timestamp(6)
+  updated_at     DateTime? @default(now()) @updatedAt @db.Timestamp(6)
+}
