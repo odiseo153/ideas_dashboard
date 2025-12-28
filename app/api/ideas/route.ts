@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { Idea } from '@/types/idea';
 
 export async function GET() {
   try {
@@ -9,11 +8,11 @@ export async function GET() {
     });
 
     // Transformar las fechas a formato ISO string para el JSON
-    const formattedIdeas = ideas.map((idea:Idea) => ({
+    const formattedIdeas = ideas.map((idea) => ({
       ...idea,
-      fecha: idea.fecha.toString().split("T")[0], // YYYY-MM-DD
-      created_at: idea.created_at?.toString() ?? null,
-      updated_at: idea.updated_at?.toString() ?? null,
+      fecha: idea.fecha.toISOString().split("T")[0], // YYYY-MM-DD
+      created_at: idea.created_at?.toISOString() ?? null,
+      updated_at: idea.updated_at?.toISOString() ?? null,
     }));
 
     return NextResponse.json(formattedIdeas);
@@ -56,4 +55,3 @@ export async function POST(request: Request) {
     );
   }
 }
-
