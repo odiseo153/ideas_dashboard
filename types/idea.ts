@@ -29,5 +29,7 @@ export interface Idea {
   db_structure?: string | null;
   redes_sociales: string[];
   images_prompt: string[];
+  created_at: string | null;
+  updated_at: string | null;
 }
 
