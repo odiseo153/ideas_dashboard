@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { Idea } from '@/types/idea';
 
 export async function GET() {
   try {
@@ -8,7 +9,7 @@ export async function GET() {
     });
 
     // Transformar las fechas a formato ISO string para el JSON
-    const formattedIdeas = ideas.map((idea) => ({
+    const formattedIdeas = ideas.map((idea:Idea) => ({
       ...idea,
       fecha: idea.fecha.toISOString().split("T")[0], // YYYY-MM-DD
       created_at: idea.created_at?.toISOString() ?? null,
