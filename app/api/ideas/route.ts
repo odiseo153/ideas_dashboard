@@ -19,8 +19,7 @@ export async function GET() {
   } catch (error) {
     console.error("Error fetching ideas:", error);
     return NextResponse.json(
-      { error: "Error al obtener las ideas" },
-      { message: error },
+      { error: "Error al obtener las ideas, " + error },
       { status: 500 }
     );
   }
